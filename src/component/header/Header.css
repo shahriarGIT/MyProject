@@ -1,0 +1,19 @@
+.NavLink {
+    text-decoration: none;
+    color: white;
+    font-size: 18px;
+    margin-top: -25px;
+    margin-left: 25px;
+    border: 1px;
+    border-color: black;
+}
+
+.NavLink:hover {
+    color: #9ddfd3;
+    text-decoration: none;
+}
+
+.active {
+    text-shadow: 1px 1px grey;
+    color: #9ddfd3;
+}

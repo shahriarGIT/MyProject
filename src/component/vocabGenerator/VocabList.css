@@ -1,0 +1,8 @@
+.a:hover ~ .b{
+    background-color: white;
+    color: black;
+}
+.HideMeaning{
+    background-color: white;
+    color: white;
+}
