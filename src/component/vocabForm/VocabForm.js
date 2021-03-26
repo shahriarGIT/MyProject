@@ -44,7 +44,7 @@ class VocabForm extends Component {
 
                     (values) => {
 
-                        console.log(this.props.vocab, "=====", values.word);
+
                         let vocabObj = {
                             word: values.word,
                             meaning: values.meaning
@@ -52,8 +52,7 @@ class VocabForm extends Component {
 
                         if (this.props.vocab.find(element => element.word === values.word)) {
 
-                            //duplicateMsg = <h1>hello</h1>
-                            console.log("state - ", this.state.msg);
+
                             this.setState({ msg: <Alert style={{ margin: "20px" }} color="danger">This Word Already Exist</Alert> })
                             setTimeout(() => {
                                 this.setState({ msg: null })
@@ -64,7 +63,6 @@ class VocabForm extends Component {
                             axios.post("https://vocabshuffler-default-rtdb.firebaseio.com/vocabs.json", vocabObj)
                                 .then(response => {
                                     if (response.status === 200) {
-                                        console.log("Success");
                                         this.setState({ msg: <Alert style={{ margin: "20px" }} color="success">Vocab Uploaded Successfully</Alert> })
                                         setTimeout(() => {
                                             this.setState({ msg: null })
@@ -73,11 +71,11 @@ class VocabForm extends Component {
 
                                     }
                                     else {
-                                        console.log("Upload failed");
+                                        //upload failed try again
                                     }
                                 })
                                 .catch(err => {
-                                    console.log("Other errors");
+                                    // error
                                 })
 
 
