@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import { incrementArray, loadVocab, toggleStart } from '../../redux/actionCreators';
+import { incrementArray, fetchVocab, toggleStart } from '../../redux/actionCreators';
 import { connect } from 'react-redux';
 import { Button } from 'reactstrap';
 import VocabList from './VocabList.js';
 
 const mapDispatchToProps = dispatch => {
     return {
-        loadVocab: () => dispatch(loadVocab()),
+        fetchVocab: () => dispatch(fetchVocab()),
         toggleStart: () => dispatch(toggleStart()),
         incrementArray: () => dispatch(incrementArray())
     }
@@ -17,6 +17,7 @@ const mapStateToProps = state => {
         vocab: state.vocab,
         start: state.start,
         arrayCounter: state.arrayCounter,
+        vocabLoading: state.vocabLoading
     }
 }
 
@@ -33,6 +34,8 @@ class Body extends Component {
 
     componentDidMount = () => {
 
+        this.props.fetchVocab();
+
         if (this.props.start) {
             this.props.toggleStart();
         }
@@ -40,10 +43,10 @@ class Body extends Component {
             return false;
         }
 
-        this.props.loadVocab();
 
 
     }
+
 
 
 
@@ -59,6 +62,8 @@ class Body extends Component {
         }
 
         vocabItem = <VocabList next={this.nextVocab} object={this.props.vocab[this.props.arrayCounter]} />
+
+
 
     }
 
@@ -81,7 +86,7 @@ class Body extends Component {
             <div style={{ margin: "50px" }}>
                 <Button style={{ margin: "10px" }} size="lg" color="primary" onClick={this.start}>Start</Button>
                 <Button color="danger" size="lg" onClick={this.start}>End</Button>
-
+                { this.props.vocabLoading === true ? vocabItem = <p>loading</p> : null}
                 { this.props.start === true ? vocabItem : null}
                 {this.props.start ? <h2>{this.state.count} of {this.props.vocab.length}</h2> : null}
             </div>

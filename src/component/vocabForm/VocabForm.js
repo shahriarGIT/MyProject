@@ -1,12 +1,36 @@
 import React, { Component } from 'react';
 import { Formik } from 'formik';
 import axios from "axios";
+import { connect } from 'react-redux';
+import { Alert } from "reactstrap";
+import { fetchVocab } from '../../redux/actionCreators';
 
+const mapStateToProps = state => {
+    return {
+        vocab: state.vocab
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        fetchVocab: () => dispatch(fetchVocab()),
+    }
+}
 
 class VocabForm extends Component {
 
+    state = {
+        msg: null
+    }
+
+    componentDidMount = () => {
+        this.props.fetchVocab();
+    }
+
+
 
     render() {
+
         let form = (
             <Formik
                 initialValues={
@@ -17,43 +41,69 @@ class VocabForm extends Component {
                 }
 
                 onSubmit={
+
                     (values) => {
+
+                        console.log(this.props.vocab, "=====", values.word);
                         let vocabObj = {
                             word: values.word,
                             meaning: values.meaning
                         }
 
-                        axios.post("https://vocabshuffler-default-rtdb.firebaseio.com/vocabs.json", vocabObj)
-                            .then(response => {
-                                if (response.status === 200) {
-                                    console.log("Success");
-                                }
-                                else {
-                                    console.log("Upload failed");
-                                }
-                            })
-                            .catch(err => {
-                                console.log("Other errors");
-                            })
+                        if (this.props.vocab.find(element => element.word === values.word)) {
+
+                            //duplicateMsg = <h1>hello</h1>
+                            console.log("state - ", this.state.msg);
+                            this.setState({ msg: <Alert style={{ margin: "20px" }} color="danger">This Word Already Exist</Alert> })
+                            setTimeout(() => {
+                                this.setState({ msg: null })
+                            }, 3000)
+
+                        }
+                        else {
+                            axios.post("https://vocabshuffler-default-rtdb.firebaseio.com/vocabs.json", vocabObj)
+                                .then(response => {
+                                    if (response.status === 200) {
+                                        console.log("Success");
+                                        this.setState({ msg: <Alert style={{ margin: "20px" }} color="success">Vocab Uploaded Successfully</Alert> })
+                                        setTimeout(() => {
+                                            this.setState({ msg: null })
+                                        }, 3000)
+                                        this.props.fetchVocab();
+
+                                    }
+                                    else {
+                                        console.log("Upload failed");
+                                    }
+                                })
+                                .catch(err => {
+                                    console.log("Other errors");
+                                })
+
+
+                        }
+
+
+
 
 
 
                     }
                 }
 
-                validatin={
+                validate={
                     (values) => {
                         const errors = {};
 
                         if (!values.word) {
                             errors.word = 'Required';
                         } else if (!isNaN(values.word)) {
-                            errors.email = 'Number is not allowed';
+                            errors.word = 'Number is not allowed';
                         }
 
                         if (!values.meaning) {
                             errors.meaning = 'Required';
-                        } else if (!isNaN(values.word)) {
+                        } else if (!isNaN(values.meaning)) {
                             errors.meaning = 'Number is not allowed';
                         }
 
@@ -66,8 +116,8 @@ class VocabForm extends Component {
                 {({ values, handleChange, handleSubmit, errors }) => (
                     <div style={{
                         border: "1px grey solid",
-                        padding: "15px",
-                        margin: "20px",
+                        padding: "20px",
+                        margin: "15px",
                         borderRadius: "7px",
                     }}>
                         <form onSubmit={handleSubmit}>
@@ -78,7 +128,7 @@ class VocabForm extends Component {
                                 value={values.word}
                                 onChange={handleChange}
                             />
-                            <span style={{ color: "red" }}>{errors.word}</span>
+                            <span style={{ color: "red" }}><p>{errors.word}</p></span>
                             <br />
                             <input
                                 name="meaning"
@@ -90,21 +140,22 @@ class VocabForm extends Component {
                             <span style={{ color: "red" }}>{errors.meaning}</span>
                             <br />
 
-                            <button type="submit" className="btn" style={{ backgroundColor: "#274472", color: "white" }}>Submit</button>
+                            <button type="submit" className="btn" style={{ margin: "10px", backgroundColor: "#274472", color: "white" }}>Submit</button>
                         </form>
                     </div>)}
 
 
-            </Formik>
+            </Formik >
         )
 
 
         return (
             <div>
+                {this.state.msg}
                 {form}
             </div>
         )
     }
 }
 
-export default VocabForm;
+export default connect(mapStateToProps, mapDispatchToProps)(VocabForm);

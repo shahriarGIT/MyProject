@@ -4,7 +4,8 @@ import * as actionTypes from './actionTypes';
 const INITIAL_STATE = {
     vocab: [],
     start: false,
-    arrayCounter: 0
+    arrayCounter: 0,
+    vocabLoading: true
 }
 
 let swap = vocab => {
@@ -27,7 +28,8 @@ export const reducer = (state = INITIAL_STATE, action) => {
         case actionTypes.LOAD_VOCABS:
             return {
                 ...state,
-                vocab: swap(action.payload)
+                vocab: swap(action.payload),
+                vocabLoading: false
             }
         case actionTypes.TOGGLE_START:
 
@@ -41,6 +43,8 @@ export const reducer = (state = INITIAL_STATE, action) => {
                 ...state,
                 arrayCounter: (state.arrayCounter === state.vocab.length - 1 ? state.arrayCounter = 0 : state.arrayCounter + 1),
             }
+
+
 
         default:
             return state;
