@@ -2,3 +2,5 @@ export const LOAD_VOCABS = "LOAD_VOCABS";
 
 export const TOGGLE_START = "TOOGLE_START";
 export const INCREMENT_ARRAY = "INCREMENT_ARRAY";
+
+export const SUBMIT_VOCAB = "SUBMIT_VOCAB";

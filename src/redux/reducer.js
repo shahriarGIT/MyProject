@@ -1,4 +1,4 @@
-import vocab from '../assets/vocabs.js';
+
 import * as actionTypes from './actionTypes';
 
 const INITIAL_STATE = {
@@ -25,10 +25,9 @@ export const reducer = (state = INITIAL_STATE, action) => {
 
     switch (action.type) {
         case actionTypes.LOAD_VOCABS:
-            swap(vocab);
             return {
                 ...state,
-                vocab: swap(vocab),
+                vocab: swap(action.payload)
             }
         case actionTypes.TOGGLE_START:
 
@@ -40,7 +39,7 @@ export const reducer = (state = INITIAL_STATE, action) => {
         case actionTypes.INCREMENT_ARRAY:
             return {
                 ...state,
-                arrayCounter: (state.arrayCounter === 3 ? state.arrayCounter = 0 : state.arrayCounter + 1),
+                arrayCounter: (state.arrayCounter === state.vocab.length - 1 ? state.arrayCounter = 0 : state.arrayCounter + 1),
             }
 
         default:
