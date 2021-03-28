@@ -83,7 +83,7 @@ class Body extends Component {
 
         }
         else {
-            //this.setState({ count: 0 })
+
             this.props.decrementArray();
         }
 
@@ -96,16 +96,9 @@ class Body extends Component {
 
 
     start = () => {
-        //(state.arrayCounter === state.vocab.length - 1 ? state.vocab.length - 1 : state.arrayCounter + 1)
 
-
-        console.log("count", this.state.count);
-
-
-        console.log("count", this.state.count);
         vocabItem = <VocabList prev={this.prevVocab} next={this.nextVocab} object={this.props.vocab[this.state.count]} />
 
-        console.log("count", this.state.count);
         this.props.startTrue();
 
     }
@@ -115,9 +108,7 @@ class Body extends Component {
         this.props.startFalse();
         this.props.loadVocab(this.props.vocab);
         this.setState({ count: 0 })
-        //this.setState({ count: 1 });
 
-        //vocabItem = <VocabList next={this.nextVocab} object={this.props.vocab[this.props.arrayCounter]} />
     }
 
 
@@ -143,7 +134,8 @@ class Body extends Component {
             <div style={{ margin: "50px" }}>
 
                 {item}
-                {vocabItem}
+
+                {this.props.start ? vocabItem : null}
 
                 {this.props.start ? <h2>{this.state.count + 1} of {this.props.vocab.length}</h2> : null}
             </div>

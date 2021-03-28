@@ -22,7 +22,7 @@ let swap = vocab => {
 
 export const reducer = (state = INITIAL_STATE, action) => {
 
-    console.log("from reducer", state);
+
 
     switch (action.type) {
         case actionTypes.LOAD_VOCABS:
