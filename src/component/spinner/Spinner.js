@@ -1,6 +1,9 @@
-import { Spinner } from "reactstrap"
+import React from 'react';
+import "./Spinner.css";
 
-<div class="loader">Loading...</div>
 
+const Spinner = () => {
+    return (<div className="loader">Loading...</div>)
+}
 
 export default Spinner;

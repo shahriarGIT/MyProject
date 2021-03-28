@@ -27,8 +27,8 @@ const VocabList = props => {
 
                 </CardBody>
                 <div>
-                    <Button style={{ backgroundColor: "#274472", fontSize: "20px", width: "50%" }} onClick={props.prev} >Previous</Button>
-                    <Button style={{ backgroundColor: "#274472", fontSize: "20px", width: "50%" }} onClick={props.next} >Next</Button>
+                    <Button style={{ backgroundColor: "#274472", fontSize: "20px", width: "50%" }} onClick={props.prev} > Previous</Button>
+                    <Button style={{ backgroundColor: "#274472", fontSize: "20px", width: "50%" }} onClick={props.next} >Next </Button>
                 </div>
 
             </Card>

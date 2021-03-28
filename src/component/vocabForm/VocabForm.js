@@ -4,6 +4,7 @@ import axios from "axios";
 import { connect } from 'react-redux';
 import { Alert } from "reactstrap";
 import { fetchVocab } from '../../redux/actionCreators';
+import Spinner from '../spinner/Spinner.js';
 
 const mapStateToProps = state => {
     return {
@@ -20,7 +21,8 @@ const mapDispatchToProps = dispatch => {
 class VocabForm extends Component {
 
     state = {
-        msg: null
+        msg: null,
+        isLoading: false
     }
 
     componentDidMount = () => {
@@ -60,23 +62,32 @@ class VocabForm extends Component {
 
                         }
                         else {
-                            axios.post("https://vocabshuffler-default-rtdb.firebaseio.com/vocabs.json", vocabObj)
-                                .then(response => {
-                                    if (response.status === 200) {
-                                        this.setState({ msg: <Alert style={{ margin: "20px" }} color="success">Vocab Uploaded Successfully</Alert> })
-                                        setTimeout(() => {
-                                            this.setState({ msg: null })
-                                        }, 3000)
-                                        this.props.fetchVocab();
 
-                                    }
-                                    else {
-                                        //upload failed try again
-                                    }
-                                })
-                                .catch(err => {
-                                    // error
-                                })
+                            if (values.code === "jasu") {
+                                this.setState({ isLoading: true })
+                                axios.post("https://vocabshuffler-default-rtdb.firebaseio.com/vocabs.json", vocabObj)
+                                    .then(response => {
+                                        if (response.status === 200) {
+                                            this.setState({ isLoading: false })
+                                            this.setState({ msg: <Alert style={{ margin: "20px" }} color="success">Vocab Uploaded Successfully</Alert> })
+                                            setTimeout(() => {
+                                                this.setState({ msg: null })
+                                            }, 3000)
+                                            this.props.fetchVocab();
+
+                                        }
+                                        else {
+                                            //upload failed try again
+                                        }
+                                    })
+                                    .catch(err => {
+                                        // error
+                                    })
+                            }
+                            else {
+                                this.setState({ msg: <Alert style={{ margin: "20px" }} color="danger">Incorrect Admin Code</Alert> })
+                            }
+
 
 
                         }
@@ -104,6 +115,11 @@ class VocabForm extends Component {
                         } else if (!isNaN(values.meaning)) {
                             errors.meaning = 'Number is not allowed';
                         }
+
+                        if (!values.code) {
+                            errors.code = 'Required';
+                        }
+
 
                         return errors;
                     }
@@ -137,6 +153,17 @@ class VocabForm extends Component {
                             />
                             <span style={{ color: "red" }}>{errors.meaning}</span>
                             <br />
+                            <input
+                                type="password"
+                                name="code"
+                                placeholder="Enter Admin Code"
+                                className="form-control"
+                                value={values.code}
+                                onChange={handleChange}
+                                style={{ marginTop: "10px" }}
+                            />
+                            <span style={{ color: "red" }}>{errors.code}</span>
+                            <br />
 
                             <button type="submit" className="btn" style={{ margin: "10px", backgroundColor: "#274472", color: "white" }}>Submit</button>
                         </form>
@@ -149,7 +176,8 @@ class VocabForm extends Component {
 
         return (
             <div>
-                {this.state.msg}
+                {this.state.isLoading ? <Spinner /> : this.state.msg}
+
                 {form}
             </div>
         )
