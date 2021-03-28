@@ -1,7 +1,9 @@
 export const LOAD_VOCABS = "LOAD_VOCABS";
 
-export const TOGGLE_START = "TOOGLE_START";
+export const START_TRUE = "START_TRUE";
+export const START_FALSE = "START_FALSE";
 export const INCREMENT_ARRAY = "INCREMENT_ARRAY";
+export const DECREMENT_ARRAY = "DECREMENT_ARRAY";
 
 export const SUBMIT_VOCAB = "SUBMIT_VOCAB";
 

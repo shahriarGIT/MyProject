@@ -14,7 +14,7 @@ const Main = () => {
             <div className="container">
                 <Switch>
                     <Route path="/Home" component={Home} />
-                    <Route path="/Random Vocab" component={Body} />
+                    <Route path="/Start Learning" component={Body} />
                     <Route path="/Input Vocab" component={VocabForm} />
                     <Redirect to="/Home" />
                 </Switch>

@@ -46,11 +46,11 @@ class VocabForm extends Component {
 
 
                         let vocabObj = {
-                            word: values.word,
-                            meaning: values.meaning
+                            word: values.word.toLowerCase(),
+                            meaning: values.meaning.toLowerCase()
                         }
 
-                        if (this.props.vocab.find(element => element.word === values.word)) {
+                        if (this.props.vocab.find(element => element.word === values.word.toLowerCase())) {
 
 
                             this.setState({ msg: <Alert style={{ margin: "20px" }} color="danger">This Word Already Exist</Alert> })

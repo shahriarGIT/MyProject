@@ -32,14 +32,26 @@ export const fetchVocab = () => dispatch => {
 
 }
 
-export const toggleStart = () => {
+export const startTrue = () => {
     return {
-        type: actionTypes.TOGGLE_START,
+        type: actionTypes.START_TRUE,
+    }
+}
+
+export const startFalse = () => {
+    return {
+        type: actionTypes.START_FALSE,
     }
 }
 
 export const incrementArray = () => {
     return {
         type: actionTypes.INCREMENT_ARRAY,
+    }
+}
+
+export const decrementArray = () => {
+    return {
+        type: actionTypes.DECREMENT_ARRAY,
     }
 }

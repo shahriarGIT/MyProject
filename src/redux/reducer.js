@@ -22,7 +22,7 @@ let swap = vocab => {
 
 export const reducer = (state = INITIAL_STATE, action) => {
 
-
+    console.log("from reducer", state);
 
     switch (action.type) {
         case actionTypes.LOAD_VOCABS:
@@ -31,17 +31,30 @@ export const reducer = (state = INITIAL_STATE, action) => {
                 vocab: swap(action.payload),
                 vocabLoading: false
             }
-        case actionTypes.TOGGLE_START:
+        case actionTypes.START_TRUE:
 
             return {
                 ...state,
-                start: (state.start ? false : true)
+                start: true
+            }
+
+        case actionTypes.START_FALSE:
+
+            return {
+                ...state,
+                start: false,
+                //vocabLoading: true
             }
 
         case actionTypes.INCREMENT_ARRAY:
             return {
                 ...state,
-                arrayCounter: (state.arrayCounter === state.vocab.length - 1 ? state.arrayCounter = 0 : state.arrayCounter + 1),
+                arrayCounter: state.arrayCounter + 1,
+            }
+        case actionTypes.DECREMENT_ARRAY:
+            return {
+                ...state,
+                arrayCounter: (state.arrayCounter === 0 ? 0 : state.arrayCounter - 1),
             }
 
 
