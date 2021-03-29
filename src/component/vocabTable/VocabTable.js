@@ -51,9 +51,9 @@ class VocabTable extends Component {
 
                 }}>
 
-                    <h2 style={{ display: "inline-flex", paddingRight: "30px" }}>{item.word} </h2>
-                    <h2 style={{ display: "inline-flex", paddingRight: "30px" }}>:</h2>
-                    <h2 style={{ display: "inline-block" }}>{item.meaning}</h2>
+                    <h4 style={{ display: "inline-flex", paddingRight: "10px" }}>{item.word} </h4>
+                    <h4 style={{ display: "inline-flex", paddingRight: "10px" }}>:</h4>
+                    <h4 style={{ display: "inline-block" }}>{item.meaning}</h4>
 
                 </div >
 

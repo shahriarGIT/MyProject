@@ -30,7 +30,6 @@ const Header = () => {
                     <NavItem>
                         <NavLink exact to="/Input Vocab" className="NavLink">Input Vocab</NavLink>
                     </NavItem>
-
                 </Nav>
             </Navbar>
         </div>
