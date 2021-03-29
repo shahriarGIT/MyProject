@@ -43,13 +43,10 @@ class Body extends Component {
 
         this.props.fetchVocab();
         this.props.startFalse();
-        console.log("Mounted", this.props.vocab);
+
 
     }
 
-    componentDidUpdate = () => {
-        console.log("Updated Mount", this.props.vocab, "isLoading", this.props.vocabLoading);
-    }
 
 
 

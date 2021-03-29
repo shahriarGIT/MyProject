@@ -25,8 +25,12 @@ const Header = () => {
                         <NavLink exact to="/Start Learning" className="NavLink">Start Learning</NavLink>
                     </NavItem>
                     <NavItem>
+                        <NavLink exact to="/Vocab List" className="NavLink">Vocab List</NavLink>
+                    </NavItem>
+                    <NavItem>
                         <NavLink exact to="/Input Vocab" className="NavLink">Input Vocab</NavLink>
                     </NavItem>
+
                 </Nav>
             </Navbar>
         </div>
