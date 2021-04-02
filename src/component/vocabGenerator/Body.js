@@ -36,6 +36,7 @@ class Body extends Component {
 
     state = {
         count: 0,
+        swap: false
 
     }
 
@@ -57,7 +58,7 @@ class Body extends Component {
 
         if (this.state.count >= 0 && this.state.count < this.props.vocab.length - 1) {
             this.setState({ count: this.state.count + 1 })
-            vocabItem = <VocabList prev={this.prevVocab} next={this.nextVocab} object={this.props.vocab[this.state.count + 1]} />
+            vocabItem = <VocabList swapState={this.state.swap} prev={this.prevVocab} next={this.nextVocab} object={this.props.vocab[this.state.count + 1]} />
             this.props.incrementArray();
         }
         else {
@@ -76,7 +77,7 @@ class Body extends Component {
         if (this.state.count > 0 && this.state.count < this.props.vocab.length) {
             this.props.decrementArray();
             this.setState({ count: this.state.count - 1 })
-            vocabItem = <VocabList prev={this.prevVocab} next={this.nextVocab} object={this.props.vocab[this.state.count - 1]} />
+            vocabItem = <VocabList swapState={this.state.swap} prev={this.prevVocab} next={this.nextVocab} object={this.props.vocab[this.state.count - 1]} />
 
         }
         else {
@@ -94,7 +95,7 @@ class Body extends Component {
 
     start = () => {
 
-        vocabItem = <VocabList prev={this.prevVocab} next={this.nextVocab} object={this.props.vocab[this.state.count]} />
+        vocabItem = <VocabList swapState={this.state.swap} prev={this.prevVocab} next={this.nextVocab} object={this.props.vocab[this.state.count]} />
 
         this.props.startTrue();
 
@@ -108,6 +109,10 @@ class Body extends Component {
 
     }
 
+    toggleSwap = () => {
+        this.setState({ swap: !this.state.swap })
+    }
+
 
 
     render() {
@@ -118,9 +123,11 @@ class Body extends Component {
         }
         else {
             item = (
-                <div>
+                <div style={{ textAlign: "center" }}>
                     <Button disabled={this.props.start} style={{ margin: "10px" }} size="lg" color="primary" onClick={this.start}>Start</Button>
-                    <Button color="danger" size="lg" onClick={this.end}>End</Button>
+                    <Button style={{ marginRight: "0rem" }} color="danger" size="lg" onClick={this.end}>End</Button>
+                    <Button style={{ display: "absolute", marginLeft: "3rem", backgroundColor: "#9fd8df", color: "black" }} size="sm" onClick={this.toggleSwap}>Swap</Button>
+                    {this.state.swap ? <p style={{ display: "inline", marginLeft: "1rem", paddingTop: "30px" }} >On </p> : null}
                 </div>)
 
 

@@ -37,7 +37,23 @@ class VocabTable extends Component {
 
 
     render() {
-        let items = this.props.vocab.map(item => {
+        function compare(a, b) {
+            // Use toUpperCase() to ignore character casing
+            const wordA = a.word.toUpperCase();
+            const wordB = b.word.toUpperCase();
+
+            let comparison = 0;
+            if (wordA > wordB) {
+                comparison = 1;
+            } else if (wordA < wordB) {
+                comparison = -1;
+            }
+            return comparison;
+        }
+
+        let sortedVocab = this.props.vocab.sort(compare);
+
+        let items = sortedVocab.map(item => {
             return (
 
                 <div style={{
