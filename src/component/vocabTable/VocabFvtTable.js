@@ -45,7 +45,7 @@ class VocabFvtTable extends Component {
         axios.put(`${url}/${item.id}.json`, { word: item.word, meaning: item.meaning, fvt: false })
             .then(response => {
                 //console.log(response);
-
+                window.location.reload(false);
             })
             .catch(err => {
                 // error
@@ -54,7 +54,7 @@ class VocabFvtTable extends Component {
         //console.log(this.props.history.push("/FvtVocab"));
 
         //this.props.history.push("/FvtVocab")
-        window.location.reload(false);
+
         // axios.put(`${url}/-MZPjyLXqwHCy1xM45VR.json`, { ...item, fvt: true })
         //     .then(response => {
         //         console.log(response);
