@@ -13,7 +13,7 @@ const Header = () => {
 
     return (
         <div>
-            <Navbar style={{ backgroundColor: "#3c415c", paddingTop: "20px" }}>
+            <Navbar navbar navbar-dar style={{ backgroundColor: "#3c415c", paddingTop: "20px" }}>
                 <NavbarBrand href="/" className="mr-auto ml-md-5 Brand">
                     <p>Vocab Shuffler</p>
                 </NavbarBrand>
@@ -30,6 +30,10 @@ const Header = () => {
                     <NavItem>
                         <NavLink exact to="/Input Vocab" className="NavLink">Input Vocab</NavLink>
                     </NavItem>
+                    <NavItem>
+                        <NavLink exact to="/FvtVocab" className="NavLink">Fvt Vocab</NavLink>
+                    </NavItem>
+
                 </Nav>
             </Navbar>
         </div>

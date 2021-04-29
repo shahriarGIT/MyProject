@@ -26,7 +26,7 @@ const mapStateToProps = state => {
 
 
 
-class VocabTable extends Component {
+class VocabFvtTable extends Component {
 
     componentDidMount = () => {
         this.props.fetchVocab();
@@ -37,7 +37,32 @@ class VocabTable extends Component {
 
 
 
+    fvt(item) {
+        // console.log(item.id);
+        let url = "https://vocabshuffler-default-rtdb.firebaseio.com/vocabs"
 
+
+        axios.put(`${url}/${item.id}.json`, { word: item.word, meaning: item.meaning, fvt: false })
+            .then(response => {
+                //console.log(response);
+
+            })
+            .catch(err => {
+                // error
+            })
+
+        //console.log(this.props.history.push("/FvtVocab"));
+
+        //this.props.history.push("/FvtVocab")
+        window.location.reload(false);
+        // axios.put(`${url}/-MZPjyLXqwHCy1xM45VR.json`, { ...item, fvt: true })
+        //     .then(response => {
+        //         console.log(response);
+        //     })
+        //     .catch(err => {
+        //         // error
+        //     })
+    }
 
 
     render() {
@@ -55,35 +80,19 @@ class VocabTable extends Component {
             return comparison;
         }
 
-        function fvt(item) {
-            console.log(item.id);
-            let url = "https://vocabshuffler-default-rtdb.firebaseio.com/vocabs"
 
-
-            axios.put(`${url}/${item.id}.json`, { word: item.word, meaning: item.meaning, fvt: true })
-                .then(response => {
-                    console.log(response);
-                })
-                .catch(err => {
-                    // error
-                })
-
-            // axios.put(`${url}/-MZPjyLXqwHCy1xM45VR.json`, { ...item, fvt: true })
-            //     .then(response => {
-            //         console.log(response);
-            //     })
-            //     .catch(err => {
-            //         // error
-            //     })
-        }
 
         let sortedVocab = this.props.vocab.sort(compare);
 
-        let items = sortedVocab.map(item => {
+        let fvtlist = sortedVocab.filter(item => item.fvt === true)
+
+        console.log(fvtlist);
+
+        let items = fvtlist.map(item => {
             return (
 
                 <div
-                    key={item.id}
+
                     style={{
                         border: "1px solid grey",
                         boxShadow: "1px 1px #888888",
@@ -98,7 +107,7 @@ class VocabTable extends Component {
                     <h4 style={{ display: "inline-flex", paddingRight: "10px" }}>{item.word} </h4>
                     <h4 style={{ display: "inline-flex", paddingRight: "10px" }}>:</h4>
                     <h4 style={{ display: "inline-block" }}>{item.meaning}</h4>
-                    <Button style={{ marginLeft: "2%" }} outline onClick={() => fvt(item)} color="info">Fvt</Button>
+                    <Button style={{ marginLeft: "2%" }} outline color="danger" onClick={() => this.fvt(item)}>X</Button>
 
 
                 </div >
@@ -113,7 +122,7 @@ class VocabTable extends Component {
                 <div style={{ textAlign: "center", margin: "20px 0px" }}>
                     {/* <h2 style={{ display: "inline-block", marginRight: "100px" }}> Word</h2>
                     <h2 style={{ display: "inline-block" }}> Meaning</h2> */}
-                    <h3>Vocab List</h3>
+                    <h3>Favourite List</h3>
                 </div>
 
                 { this.props.vocabLoading ? <Spinner /> : items}
@@ -124,4 +133,4 @@ class VocabTable extends Component {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(VocabTable);
+export default connect(mapStateToProps, mapDispatchToProps)(VocabFvtTable);
